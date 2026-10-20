@@ -31,8 +31,6 @@ addopts = ["-m", "not integration", "--strict-markers"]
 
 [tool.uv]
 exclude-newer = "P7D"
-# Don't perform cooldowns of our own tools.
-exclude-newer-package = { ruff = false, ty = false }
 
 [tool.uv.audit]
 ignore = [
@@ -49,3 +47,13 @@ dev = [
     "sphinx>=9.1.0",
     "ty>=0.0.29",
 ]
+
+[tool.uv.exclude-newer-package]
+# Don't perform cooldowns of our own tools.
+ruff = false
+ty = false
+# Temporarily replace the rolling cutoff for certifi with a fixed
+# timestamp to admit 2026.10.19, which removes a root linked to
+# compromised intermediate CA keys. Remove the override once the release
+# is at least seven days old.
+certifi = "2026-10-20T02:24:17Z"
